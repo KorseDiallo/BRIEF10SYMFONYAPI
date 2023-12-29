@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class UserController extends AbstractController
 {
-    #[Route('/api/register', name: 'app_user')]
+    #[Route('/api/register', name: 'login_check')]
     public function register(Request $request,SerializerInterface $serializer,EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher ): JsonResponse
     {
         $user= $serializer->deserialize($request->getContent(), User::class,'json');
@@ -36,6 +36,7 @@ class UserController extends AbstractController
         $listeCandidat= $userRepository->findBy(['roles'=>'Candidat']);
       
         $convert = $serializer->serialize($listeCandidat, 'json');
+        // return $this->json($convert,200);
         // dd($listeCandidat);
         return $this->json([
             'status' => true,
