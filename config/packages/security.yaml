@@ -44,7 +44,7 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
-         - { path: ^/api/admin/, roles: ROLE_ADMIN, methods: [GET, POST, PUT, DELETE], ip: [127.0.0.1], requires_channel: https }
+         - { path: ^/api/admin/, roles: ROLE_ADMIN, methods: [GET, POST, PUT, DELETE],  requires_channel: https }
 
 
 when@test:
