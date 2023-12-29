@@ -29,4 +29,6 @@ class UserController extends AbstractController
         return new JsonResponse(['message' => 'Enregistrement Effectuer avec Succès'], Response::HTTP_CREATED);
         
     }
+
+   
 }
