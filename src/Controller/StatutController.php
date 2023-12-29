@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class StatutController extends AbstractController
 {
-    #[Route('/api/ajouterStatut', name: 'ajouter_statut')]
+    #[Route('/api/admin/ajouterStatut', name: 'ajouter_statut')]
 
     public function ajouterStatus(Request $request,SerializerInterface $serializer,EntityManagerInterface $em): JsonResponse
     {
@@ -26,7 +26,7 @@ class StatutController extends AbstractController
     }
     
 
-    #[Route('/api/supprimerStatut/{id}', name: 'supprimer_statut')]
+    #[Route('/api/admin/supprimerStatut/{id}', name: 'supprimer_statut')]
     public function supprimerFormation(int $id,EntityManagerInterface $em,StatutRepository $statutRepository){
          $statut= $statutRepository->find($id);
          if($statut){
@@ -38,7 +38,7 @@ class StatutController extends AbstractController
          }
     }
 
-    #[Route('/api/modifierStatut/{id}', name: 'modifier_statut')]
+    #[Route('/api/admin/modifierStatut/{id}', name: 'modifier_statut')]
    public function modifierFormation(int $id, Request $request,SerializerInterface $serializer,StatutRepository $statutRepository,EntityManagerInterface $em){
         $modifStatut= $statutRepository->find($id);
         if($modifStatut){
