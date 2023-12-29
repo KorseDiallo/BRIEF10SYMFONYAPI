@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,5 +31,16 @@ class UserController extends AbstractController
         
     }
 
-   
+   #[Route('/api/listCandidat', name: 'liste_candidat')]
+   public function listeCandidature(UserRepository $userRepository,SerializerInterface $serializer){
+        $listeCandidat= $userRepository->findBy(['roles'=>'Candidat']);
+      
+        $convert = $serializer->serialize($listeCandidat, 'json');
+        // dd($listeCandidat);
+        return $this->json([
+            'status' => true,
+            'message' => 'Liste des candidats',
+            'data' => $convert,
+        ]);
+   }
 }
