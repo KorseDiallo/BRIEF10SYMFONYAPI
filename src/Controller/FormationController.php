@@ -13,9 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
+
+
 class FormationController extends AbstractController
 {
     #[Route('/api/CreerFormation', name: 'app_formation')]
+   
+     /**
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
     public function creerFormation(Request $request,SerializerInterface $serializer,EntityManagerInterface $em): JsonResponse
     {
         $formation=$serializer->deserialize($request->getContent(),Formation::class,'json');
