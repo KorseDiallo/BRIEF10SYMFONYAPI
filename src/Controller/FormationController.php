@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -18,10 +19,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class FormationController extends AbstractController
 {
     #[Route('/api/CreerFormation', name: 'app_formation')]
-   
-     /**
-     * @Security("is_granted('ROLE_ADMIN')")
-     */
+    #[IsGranted('Admin', message: 'Vous n\'avez pas les droits suffisants pour créer un livre')]
     public function creerFormation(Request $request,SerializerInterface $serializer,EntityManagerInterface $em): JsonResponse
     {
         $formation=$serializer->deserialize($request->getContent(),Formation::class,'json');
