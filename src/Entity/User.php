@@ -8,9 +8,26 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use App\Controller\UserController;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ApiResource(operations: [
+    new GetCollection(),
+    new Post(
+        name: 'login_check', 
+        uriTemplate: '/api/register', 
+        controller: UserController::class.'::register'
+    ),
+    new Post(
+        name: 'liste_candidat', 
+        uriTemplate: '/api/listCandidat', 
+        controller:UserController::class.'::listeCandidature'
+    )
+])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

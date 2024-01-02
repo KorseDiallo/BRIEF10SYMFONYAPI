@@ -45,7 +45,7 @@ class CandidatureController extends AbstractController
         return new JsonResponse(['message' => 'Candidature enregistrée avec succès'], Response::HTTP_CREATED);
     }
 
-    #[Route('/api/refuser/{id}/{statutId}', name: 'app_candidater')]
+    #[Route('/api/refuser/{id}/{statutId}', name: 'app_refuser')]
     public function refuser(EntityManagerInterface $em,int $id,int $statutId,CandidatureRepository $candidatureRepository,StatutRepository $statutRepository):JsonResponse{
         $candidature= $candidatureRepository->find($id);
         $statut= $statutRepository->find($statutId);
@@ -56,7 +56,7 @@ class CandidatureController extends AbstractController
         return new JsonResponse(['message' => 'Candidature Refusée Avec Succès'], Response::HTTP_CREATED);
     }
 
-    #[Route('/api/accepter/{id}/{statutId}', name: 'app_candidater')]
+    #[Route('/api/accepter/{id}/{statutId}', name: 'app_accepter')]
     public function accepter(EntityManagerInterface $em,int $id,int $statutId,CandidatureRepository $candidatureRepository,StatutRepository $statutRepository):JsonResponse{
         $candidature= $candidatureRepository->find($id);
         $statut= $statutRepository->find($statutId);

@@ -6,8 +6,32 @@ use App\Repository\StatutRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Controller\StatutController;
 
 #[ORM\Entity(repositoryClass: StatutRepository::class)]
+
+#[ApiResource(operations: [
+    
+    new Post(
+        name: 'ajouter_statut', 
+        uriTemplate: '/api/ajouterStatut', 
+        controller: StatutController::class.'::ajouterStatus'
+    ),
+    new Delete(
+        name: 'supprimer_statut', 
+        uriTemplate: '/api/supprimerStatut/{id}', 
+        controller:StatutController::class.'::supprimerStatut'
+    ),
+    new Put(
+        name: 'modifier_statut', 
+        uriTemplate: '/api/modifierStatut/{id}', 
+        controller:StatutController::class.'::modifierStatut'
+    )
+])]
 class Statut
 {
     #[ORM\Id]

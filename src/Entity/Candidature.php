@@ -4,8 +4,29 @@ namespace App\Entity;
 
 use App\Repository\CandidatureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
+use App\Controller\CandidatureController;
 
 #[ORM\Entity(repositoryClass: CandidatureRepository::class)]
+#[ApiResource(operations: [
+    
+    new Post(
+        name: 'app_candidater', 
+        uriTemplate: '/api/candidater/{formationId}/{statutId}', 
+        controller: CandidatureController::class.'::candidater'
+    ),
+    new Post(
+        name: 'app_refuser', 
+        uriTemplate: '/api/refuser/{id}/{statutId}', 
+        controller:CandidatureController::class.'::refuser'
+    ),
+    new Post(
+        name: 'app_accepter', 
+        uriTemplate: '/api/accepter/{id}/{statutId}', 
+        controller:CandidatureController::class.'::accepter'
+    )
+])]
 class Candidature
 {
     #[ORM\Id]

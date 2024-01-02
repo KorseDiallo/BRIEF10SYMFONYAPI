@@ -6,8 +6,31 @@ use App\Repository\FormationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Controller\FormationController;
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
+#[ApiResource(operations: [
+    
+    new Post(
+        name: 'app_formation', 
+        uriTemplate: '/api/CreerFormation', 
+        controller: FormationController::class.'::creerFormation'
+    ),
+    new Delete(
+        name: 'supprimer_formation', 
+        uriTemplate: '/api/supprimerFormation/{id}', 
+        controller:FormationController::class.'::supprimerFormation'
+    ),
+    new Put(
+        name: 'modifier_formation', 
+        uriTemplate: '/api/modifierFormation/{id}', 
+        controller:FormationController::class.'::modifierFormation'
+    )
+])]
 class Formation
 {
     #[ORM\Id]

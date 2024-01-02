@@ -27,7 +27,7 @@ class StatutController extends AbstractController
     
 
     #[Route('/api/supprimerStatut/{id}', name: 'supprimer_statut')]
-    public function supprimerFormation(int $id,EntityManagerInterface $em,StatutRepository $statutRepository){
+    public function supprimerStatut(int $id,EntityManagerInterface $em,StatutRepository $statutRepository){
          $statut= $statutRepository->find($id);
          if($statut){
             $em->remove($statut);
@@ -39,7 +39,7 @@ class StatutController extends AbstractController
     }
 
     #[Route('/api/modifierStatut/{id}', name: 'modifier_statut')]
-   public function modifierFormation(int $id, Request $request,SerializerInterface $serializer,StatutRepository $statutRepository,EntityManagerInterface $em){
+   public function modifierStatut(int $id, Request $request,SerializerInterface $serializer,StatutRepository $statutRepository,EntityManagerInterface $em){
         $modifStatut= $statutRepository->find($id);
         if($modifStatut){
             $jsonmodifStatut= $serializer->deserialize($request->getContent(),Statut::class,'json',[AbstractNormalizer::OBJECT_TO_POPULATE =>$modifStatut]);
