@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class CandidatureController extends AbstractController
 {
     #[Route('/api/candidater/{formationId}/{statutId}', name: 'app_candidater')]
-    public function creerFormation(EntityManagerInterface $em,Security $security,int $formationId,int $statutId,FormationRepository $formationRepository,StatutRepository $statutRepository ): JsonResponse {
+    public function candidater(EntityManagerInterface $em,int $formationId,int $statutId,FormationRepository $formationRepository,StatutRepository $statutRepository ): JsonResponse {
         
         $user = $this->getUser();
 
@@ -26,7 +26,6 @@ class CandidatureController extends AbstractController
         }
 
         $formation = $formationRepository->find($formationId);
-        
         $statut = $statutRepository->find($statutId);
 
         if (!$formation || !$statut) {
