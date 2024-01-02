@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Candidature;
+use App\Repository\CandidatureRepository;
 use App\Repository\FormationRepository;
 use App\Repository\StatutRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,5 +45,25 @@ class CandidatureController extends AbstractController
         return new JsonResponse(['message' => 'Candidature enregistrée avec succès'], Response::HTTP_CREATED);
     }
 
-    
+    #[Route('/api/refuser/{id}/{statutId}', name: 'app_candidater')]
+    public function refuser(EntityManagerInterface $em,int $id,int $statutId,CandidatureRepository $candidatureRepository,StatutRepository $statutRepository):JsonResponse{
+        $candidature= $candidatureRepository->find($id);
+        $statut= $statutRepository->find($statutId);
+        $candidature->setStatut($statut);
+        $em->persist($candidature);
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Candidature Refusée Avec Succès'], Response::HTTP_CREATED);
+    }
+
+    #[Route('/api/accepter/{id}/{statutId}', name: 'app_candidater')]
+    public function accepter(EntityManagerInterface $em,int $id,int $statutId,CandidatureRepository $candidatureRepository,StatutRepository $statutRepository):JsonResponse{
+        $candidature= $candidatureRepository->find($id);
+        $statut= $statutRepository->find($statutId);
+        $candidature->setStatut($statut);
+        $em->persist($candidature);
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Candidature Acceptée Avec Succès'], Response::HTTP_CREATED);
+    }
 }
